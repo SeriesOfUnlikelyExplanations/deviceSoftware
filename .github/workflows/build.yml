@@ -25,6 +25,7 @@ jobs:
           npm install
           tsc
           cd vanComputer
+          pip install pipenv
           pipenv install --dev
 
       - name: Run unit tests
