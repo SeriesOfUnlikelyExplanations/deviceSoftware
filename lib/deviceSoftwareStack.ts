@@ -1,5 +1,5 @@
 import * as cdk from '@aws-cdk/core';
-import { Role } from '@aws-cdk/iam';
+import { Role } from '@aws-cdk/aws-iam';
 import { Bucket, BlockPublicAccess, HttpMethods, StorageClass } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 
