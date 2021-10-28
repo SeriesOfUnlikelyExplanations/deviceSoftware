@@ -24,39 +24,10 @@ export class DeviceSoftwareStack extends cdk.Stack {
     });
     sourceBucket.grantRead(handler);
 
-    new BucketDeployment(this, 'DeployWebsite', {
+    new BucketDeployment(this, 'DeployDeviceSoftware', {
       sources: [Source.asset(config.destDir)],
       destinationBucket: sourceBucket
     });
-
-    const moviesBucket = new Bucket(this, 'Always-Onward-movies', {
-      bucketName: 'always-onward-movies',
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
-      cors: [
-        {
-          allowedMethods: [
-            HttpMethods.POST,
-            HttpMethods.PUT,
-          ],
-          allowedOrigins: [config.localName, config.siteName].map(i => `https://${i}`),
-          allowedHeaders: ['*'],
-        },
-      ],
-      lifecycleRules: [
-        {
-          abortIncompleteMultipartUploadAfter: cdk.Duration.days(30),
-          expiration: cdk.Duration.days(365),
-          transitions: [
-            {
-              storageClass: StorageClass.ONE_ZONE_INFREQUENT_ACCESS,
-              transitionAfter: cdk.Duration.days(30),
-            }
-          ],
-        },
-      ],
-    });
-    moviesBucket.grantReadWrite(handler);
 
     //export values
     new StringParameter(this, 'deviceSoftwareBucket', {
