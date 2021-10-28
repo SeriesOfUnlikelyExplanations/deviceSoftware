@@ -1,0 +1,20 @@
+!jest.config.js
+*.tar.gz
+node_modules
+.env
+dist/
+__pycache__
+.pytest_cache
+template.yaml
+key.pem
+cert.pem
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# test coverage
+.coverage
+coverage
+.nyc_output
+coverage.xml

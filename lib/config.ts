@@ -1,0 +1,18 @@
+export var certificateArn = 'arn:aws:acm:us-east-1:718523126320:certificate/759a286c-c57f-44b4-a40f-4c864a8ab447';
+export var hostedZoneId = 'Z0092175EW0ABPS51GQB';
+export var siteName = 'www.always-onward.com';
+export var localName = 'localhost:3000'
+export var rootSiteName = 'always-onward.com';
+export var authDomain = 'auth.always-onward.com'
+export var authName = 'auth-onward'
+export var region = 'us-west-2'
+export var offersBucket = 'uploaded-offers'
+export var destDir = './dist/deviceSoftware'
+export var devices = ['vanComputer']
+
+export var LWA_CLIENT_ID = process.env.LWA_CLIENT_ID as string;
+export var LWA_CLIENT_SECRET = process.env.LWA_CLIENT_SECRET as string;
+export var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
+export var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
+export var EMAIL = process.env.EMAIL as string || 'test@test.com';
+export var version = process.env.COMMIT_ID as string || '1234';

@@ -1,0 +1,6 @@
+[run]
+omit = 
+  test/*
+  # omit anything in a .local directory anywhere
+  main.py
+  ota.py

@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+test="python3 -m pytest test/test.py"
+deploy-test="python3 -m pytest test/test.py --cov=./ --cov-report=xml --cov-config=test/.coveragerc"
+
+[packages]
+requests = "*"
+python-crontab="*"
+
+[dev-packages]
+pytest-cov = "*"
+boto3 = "*"
+moto = "*"
+pyyaml = "*"
+requests-mock = "*"

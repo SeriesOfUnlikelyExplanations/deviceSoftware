@@ -1,0 +1,95 @@
+name: Deploy
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - live
+jobs:
+ build:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Build
+        run: |
+          npm install
+          tsc
+          cd routeLambda
+          npm install --production
+          pip install pipenv
+          cd ../processorLambda
+          pipenv install
+          cp -r $(pipenv --venv)/lib/python3.8/site-packages/. .
+          pipenv install --dev
+          cd ../vanComputer
+          pipenv install --dev
+
+      - name: Run unit tests
+        run: |
+          npm run test-route-deploy
+          cd processorLambda
+          pipenv run deploy-test
+          cd ../vanComputer
+          pipenv run deploy-test
+        env:
+          AWS_ACCESS_KEY_ID: 'testKey'
+          AWS_SECRET_ACCESS_KEY: 'testSecret'
+
+      - name: pre-build
+        run: |
+          node dist/lib/pre-deploy.js
+        env:
+          COMMIT_ID: ${{ github.sha }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
+      - name: Test CDK
+        run: |
+          npm run test-cdk
+        env:
+          AWS_ACCESS_KEY_ID: 'testKey'
+          AWS_SECRET_ACCESS_KEY: 'testSecret'
+
+      - name: Deploy
+        run: |
+          npm run deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          LWA_CLIENT_ID: ${{ secrets.LWA_CLIENT_ID }}
+          LWA_CLIENT_SECRET: ${{ secrets.LWA_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          EMAIL: ${{ secrets.EMAIL }}
+          COMMIT_ID: ${{ github.sha }}
+
+      - uses: codecov/codecov-action@v1
+        name: upload routeLambda coverage
+        with:
+          file: routeLambda/coverage/*.json
+          flags: routeLambda
+          fail_ci_if_error: true
+
+      - uses: codecov/codecov-action@v1
+        name: upload processorLambda coverage
+        with:
+          file: processorLambda/*.xml
+          flags: processorLambda
+          fail_ci_if_error: true
+
+      - uses: codecov/codecov-action@v1
+        name: upload vanComputer coverage
+        with:
+          file: vanComputer/*.xml
+          flags: vanComputer
+          fail_ci_if_error: true

@@ -1,0 +1,63 @@
+{
+  "name": "always-onward",
+  "version": "0.1.0",
+  "description": "Always Onward website",
+  "author": "Tom Woodard",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SeriesOfUnlikelyExplanations/always-onward.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SeriesOfUnlikelyExplanations/always-onward/issues"
+  },
+  "homepage": "https://github.com/SeriesOfUnlikelyExplanations/always-onward",
+  "bin": {
+    "always-onward": "bin/always-onward.js"
+  },
+  "scripts": {
+    "clean": "rm -r cdk.out && rm -r dist",
+    "test-cdk": "cdk synth",
+    "test-route": "npm --prefix routeLambda/ run test",
+    "test-processor": "cd processorLambda && pipenv run test && cd ..",
+    "test-van": "cd vanComputer && pipenv run test && cd ..",
+    "ssh-van": "ssh pi@vancomputer.always-onward.com -p 7056",
+    "test": "npm run test-route && npm run test-processor && npm run test-van && npm run test-cdk",
+    "serve": "nodemon -L local.js server",
+    "van": "cd vanComputer && pipenv run py index.py && cd ..",
+    "van-ota": "cd vanComputer && pipenv run py ota.py && cd ..",
+    "test-route-deploy": "npm --prefix routeLambda/ run deploy-test",
+    "deploy": "cdk deploy --all --require-approval never"
+  },
+  "dependencies": {
+    "@aws-cdk/assert": "^1.119.0",
+    "@aws-cdk/aws-cloudfront": "^1.119.0",
+    "@aws-cdk/aws-cloudfront-origins": "^1.119.0",
+    "@aws-cdk/aws-dynamodb": "^1.119.0",
+    "@aws-cdk/aws-route53-targets": "^1.119.0",
+    "@aws-cdk/aws-s3-deployment": "^1.119.0",
+    "@aws-cdk/aws-ses-actions": "^1.119.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.119.0",
+    "@aws-cdk/core": "^1.119",
+    "@southlane/cognito-jwt-verifier": "^0.1.7",
+    "@types/node": "^14.14.31",
+    "@types/targz": "^1.0.1",
+    "aws-cdk": "^1.119.0",
+    "aws-sdk": "^2.923.0",
+    "jose": "^3.14.3",
+    "lambda-api": "^0.11.1",
+    "nodemon": "^2.0.7",
+    "source-map-support": "^0.5.16",
+    "targz": "^1.0.1",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.2.0",
+    "nock": "^12.0.3",
+    "node-ssh": "^12.0.0",
+    "nyc": "^15.1.0",
+    "sinon": "^11.1.2"
+  }
+}
