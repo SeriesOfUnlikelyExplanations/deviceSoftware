@@ -1,4 +1,5 @@
 import * as cdk from '@aws-cdk/core';
+import { Role } from '@aws-cdk/iam';
 import { Bucket, BlockPublicAccess, HttpMethods, StorageClass } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 
@@ -13,7 +14,7 @@ export class DeviceSoftwareStack extends cdk.Stack {
       parameterName: '/AlwaysOnward/lambdaRoleArn',
     }).stringValue;
     
-    const role = iam.Role.fromRoleArn(this, "lambdaRole", roleArn);
+    const role = Role.fromRoleArn(this, "lambdaRole", roleArn);
     
     const sourceBucket = new Bucket(this, 'Always-Onward-deviceSoftware', {
       bucketName: 'always-onward-devicesoftware',
