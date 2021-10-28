@@ -6,7 +6,7 @@ import { StringParameter } from '@aws-cdk/aws-ssm';
 import * as config from './config';
 
 export class DeviceSoftwareStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props: myStackProps) {
+  constructor(scope: cdk.App, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
     const lambdaArn = StringParameter.fromStringParameterAttributes(this, 'MyValue', {

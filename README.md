@@ -1,8 +1,8 @@
-# always-onward
+# Van Computer
 
 This package includes the static files, lambda code, and CDK deployment pipeline for the always-onward website. You can see the website here - https://www.always-onward.com/.
 
-[![Actions Status](https://github.com/SeriesOfUnlikelyExplanations/always-onward/workflows/Deploy/badge.svg)](https://github.com/SeriesOfUnlikelyExplanations/always-onward/actions) [![codecov](https://codecov.io/gh/SeriesOfUnlikelyExplanations/always-onward/branch/live/graph/badge.svg?token=00SV7PWY60)](https://codecov.io/gh/SeriesOfUnlikelyExplanations/always-onward)
+[![Actions Status](https://github.com/SeriesOfUnlikelyExplanations/vanComputer/workflows/Deploy/badge.svg)](https://github.com/SeriesOfUnlikelyExplanations/vanComputer/actions) [![codecov](https://codecov.io/gh/SeriesOfUnlikelyExplanations/vanComputer/branch/live/graph/badge.svg?token=00SV7PWY60)](https://codecov.io/gh/SeriesOfUnlikelyExplanations/vanComputer)
 
 To run the website locally, use:
 npm run serve
