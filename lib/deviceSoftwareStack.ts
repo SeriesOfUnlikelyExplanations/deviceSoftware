@@ -33,10 +33,6 @@ export class DeviceSoftwareStack extends cdk.Stack {
       parameterName: '/AlwaysOnward/deviceSoftwareBucket',
       stringValue: sourceBucket.bucketName
     });
-    new StringParameter(this, 'moviesBucket', {
-      parameterName: '/AlwaysOnward/moviesBucket',
-      stringValue: moviesBucket.bucketName
-    });
     new StringParameter(this, 'currentSoftwareVersion', {
       parameterName: '/AlwaysOnward/currentSoftwareVersion',
       stringValue: config.version
